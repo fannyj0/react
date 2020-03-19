@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import CatRow from './MediaRow';
+import MediaRow from './MediaRow';
 
 const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 
@@ -26,7 +26,7 @@ const MediaTable = () => {
     <table>
       <tbody>
         {
-          picArray.map((file, index) => <CatRow file={file} key={index}/>)
+          picArray.map((file, index) => <MediaRow file={file} key={index}/>)
         }
       </tbody>
     </table>
