@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import CatRow from './catRow';
+import CatRow from './MediaRow';
 
 const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 
-const CatTable = () => {
+const MediaTable = () => {
   const [picArray, setPicArray] = useState([]);
   const loadMedia = async () => {
     const response = await fetch(baseUrl + 'media');
@@ -34,4 +34,4 @@ const CatTable = () => {
 };
 
 
-export default CatTable;
+export default MediaTable;

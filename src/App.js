@@ -1,12 +1,11 @@
-/* eslint-disable max-len */
 import React from 'react';
 import './App.css';
-import CatTable from './components/catTable';
+import MediaTable from './components/MediaTable';
 
 
 const App = () =>{
   return (
-    <CatTable />
+    <MediaTable />
   );
 };
 
