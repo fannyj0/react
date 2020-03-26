@@ -1,11 +1,18 @@
-/* import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useEffect } from 'react'
+import { Redirect } from 'react-router-dom';
+import { MediaContext } from '../contexts/MediaContext';
 
-function Logout(props) {
+const Logout = () => {
+    // eslint-disable-next-line no-unused-vars
+    const [user, setUser] = useContext(MediaContext);
+    useEffect(() => {
+        setUser(null);
+        localStorage.clear();
+    }, [setUser]);
+
     return (
-        <h1>Logout</h1>
+        <Redirect to='/home'/>
     )
 };
 
-export default Logout
- */
+export default Logout;
