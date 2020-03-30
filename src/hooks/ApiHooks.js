@@ -38,6 +38,22 @@ const useSingleMedia = (id) => {
   
     return data;
   };
+
+  const useAvatarImage = (id) => {
+    const [data, setData] = useState([]);
+    const fetchUrl = async (fileid) => {
+      console.log('AAA', fileid);
+        const response = await fetch(baseUrl + 'tags/avatar_' + fileid);
+        const item = await response.json();
+        setData(item);
+    };
+  
+    useEffect(()=>{
+      fetchUrl(id);
+    }, [id]);
+  
+    return data;
+  };
   
   const register = async (inputs) => {
     const fetchOptions = {
@@ -102,6 +118,7 @@ const useSingleMedia = (id) => {
       }
   };
 
+
 export {
   useAllMedia,
   useSingleMedia,
@@ -109,4 +126,5 @@ export {
   login,
   checkUserAvailable,
   checkToken,
+  useAvatarImage,
 };

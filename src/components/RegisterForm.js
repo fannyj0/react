@@ -29,49 +29,66 @@ function RegisterForm({history}) {
     };
     const {inputs, handleInputChange, handleSubmit} = useSignUpForm(doRegister);
     return (
-        <>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit}>
+        <Grid container>
             <Grid>
-            <TextField 
-            type="text"
-            name="username"
-            label="Username"
-            onChange={handleInputChange}
-            value={inputs.username}
-            />
+                <h1>Register</h1>
             </Grid>
-            <Grid>
-            <TextField 
-            type="password"
-            name="password"
-            label="Password"
-            onChange={handleInputChange}
-            value={inputs.password}
-            />
+            <Grid item xs={12}>
+                <form onSubmit={handleSubmit}>
+                    <Grid container>
+                        <Grid container item>
+                            <TextField 
+                            fullWidth
+                            type="text"
+                            name="username"
+                            label="Username"
+                            onChange={handleInputChange}
+                            value={inputs.username}
+                        />
+                        </Grid>
+                        <Grid container item>
+                            <TextField 
+                            fullWidth
+                            type="password"
+                            name="password"
+                            label="Password"
+                            onChange={handleInputChange}
+                            value={inputs.password}
+                        />
+                        </Grid>
+                        <Grid container item>
+                            <TextField 
+                            fullWidth
+                            type="email"
+                            name="email"
+                            label="Email"
+                            onChange={handleInputChange}
+                            value={inputs.email}
+                        />
+                        </Grid>
+                        <Grid container item>
+                            <TextField 
+                            fullWidth
+                            type="email"
+                            name="full_name"
+                            label="Full name"
+                            onChange={handleInputChange}
+                            value={inputs.full_name}
+                        />
+                        </Grid>
+                        <Grid container item>
+                            <Button 
+                                fullWidth 
+                                color="secondary" 
+                                variant="contained" 
+                                type="submit">
+                                    Register
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
             </Grid>
-            <Grid>
-            <TextField 
-            type="email"
-            name="email"
-            label="Email"
-            onChange={handleInputChange}
-            value={inputs.email}
-            />
-            </Grid>
-            <Grid>
-            <TextField 
-            type="email"
-            name="full_name"
-            label="Full name"
-            onChange={handleInputChange}
-            value={inputs.full_name}
-            />
-            </Grid>
-            <Button color="primary" type="submit">Register</Button>
-            
-        </form>
-        </>
+        </Grid>
     )
 }
 

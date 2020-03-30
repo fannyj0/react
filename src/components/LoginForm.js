@@ -54,7 +54,13 @@ function LoginForm({history}) {
                         />
                     </Grid>
                     <Grid container item>
-                    <Button fullWidth color="primary" type="submit">Login</Button>
+                        <Button 
+                            fullWidth 
+                            color="primary" 
+                            variant="contained" 
+                            type="submit">
+                                Login
+                        </Button>
                     </Grid>
                 </Grid>
             </form>

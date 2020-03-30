@@ -16,7 +16,7 @@ const App = () =>{
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <MediaProvider>
-        <Container>
+        <Container maxWidth="sm">
         <Nav />
         <Switch>
           <Route path="/" exact component={Login}/>
