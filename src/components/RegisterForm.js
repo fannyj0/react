@@ -4,6 +4,7 @@ import useSignUpForm from '../hooks/RegisterHooks'
 import {register, login, checkUserAvailable} from '../hooks/ApiHooks';
 import {withRouter} from 'react-router-dom';
 import { MediaContext } from '../contexts/MediaContext';
+import { Button, TextField, Grid } from '@material-ui/core';
 
 function RegisterForm({history}) {
     // eslint-disable-next-line no-unused-vars
@@ -31,35 +32,43 @@ function RegisterForm({history}) {
         <>
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-            <input 
+            <Grid>
+            <TextField 
             type="text"
             name="username"
-            placeholder="Username"
+            label="Username"
             onChange={handleInputChange}
             value={inputs.username}
             />
-            <input 
+            </Grid>
+            <Grid>
+            <TextField 
             type="password"
             name="password"
-            placeholder="Password"
+            label="Password"
             onChange={handleInputChange}
             value={inputs.password}
             />
-            <input 
+            </Grid>
+            <Grid>
+            <TextField 
             type="email"
             name="email"
-            placeholder="Email"
+            label="Email"
             onChange={handleInputChange}
             value={inputs.email}
             />
-            <input 
+            </Grid>
+            <Grid>
+            <TextField 
             type="email"
             name="full_name"
-            placeholder="Full name"
+            label="Full name"
             onChange={handleInputChange}
             value={inputs.full_name}
             />
-            <button type="submit">Register</button>
+            </Grid>
+            <Button color="primary" type="submit">Register</Button>
             
         </form>
         </>
