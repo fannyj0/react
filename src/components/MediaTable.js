@@ -54,6 +54,4 @@ const MediaTable = () => {
   );
 };
 
-
-
 export default MediaTable;
