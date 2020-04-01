@@ -39,21 +39,12 @@ const useSingleMedia = (id) => {
     return data;
   };
 
-  const useAvatarImage = (id) => {
-    const [data, setData] = useState([]);
-    const fetchUrl = async (fileid) => {
-      console.log('AAA', fileid);
-        const response = await fetch(baseUrl + 'tags/avatar_' + fileid);
-        const item = await response.json();
-        setData(item);
-    };
-  
-    useEffect(()=>{
-      fetchUrl(id);
-    }, [id]);
-  
-    return data;
+  const getAvatarImage = async (id) => {
+    console.log('ai', id);
+    const response = await fetch(baseUrl + 'tags/avatar_' + id);
+    return await response.json();
   };
+  
   
   const register = async (inputs) => {
     const fetchOptions = {
@@ -126,5 +117,5 @@ export {
   login,
   checkUserAvailable,
   checkToken,
-  useAvatarImage,
+  getAvatarImage,
 };
