@@ -3,6 +3,7 @@ import {useState} from 'react';
 const useSignUpForm = (callback) => {
     const [inputs, setInputs] = useState({
         username: '',
+        confirm: '',
         password: '',
         email: '',
         full_name: '',
@@ -25,7 +26,7 @@ const useSignUpForm = (callback) => {
     return {
       handleSubmit,
       handleInputChange,
-      inputs
+      inputs,
     };
   }
 

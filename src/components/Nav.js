@@ -22,6 +22,18 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+/* import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+    secondary: {
+      main: '#f44336',
+    },
+  },
+}); */
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -32,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  color: {
+    primary: '#f44336',
+  }
 }));
+
 
 const Nav = ({history}) => {
   const classes = useStyles();
@@ -60,7 +76,7 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar>
+      <AppBar className={classes.color}>
         <Toolbar>
           <IconButton
             edge="start"
