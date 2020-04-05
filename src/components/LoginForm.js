@@ -4,7 +4,8 @@ import useLoginForm from '../hooks/LoginHooks'
 import {login} from '../hooks/ApiHooks';
 import { withRouter } from 'react-router-dom';
 import { MediaContext } from '../contexts/MediaContext';
-import { Button, TextField, Grid } from '@material-ui/core';
+import { Button, TextField, Grid} from '@material-ui/core';
+
 
 function LoginForm({history}) {
      // eslint-disable-next-line no-unused-vars
@@ -13,7 +14,6 @@ function LoginForm({history}) {
         try{
             const userdata = await login(inputs);
             setUser(userdata.user);
-            //console.log(user);
             //tallenna token
             localStorage.setItem('token', userdata.token);
             //siirry etusivulle
@@ -26,7 +26,8 @@ function LoginForm({history}) {
     };
     const {inputs, handleInputChange, handleSubmit} = useLoginForm(doLogin);
     return (
-        <Grid container>
+          <>
+        <Grid container >
         <Grid item xs={12}>
             <h1>Login</h1>
         </Grid>
@@ -56,7 +57,7 @@ function LoginForm({history}) {
                     <Grid container item>
                         <Button 
                             fullWidth 
-                            color="primary" 
+                            color="secondary" 
                             variant="contained" 
                             type="submit">
                                 Login
@@ -66,6 +67,7 @@ function LoginForm({history}) {
             </form>
             </Grid>
         </Grid>
+        </>
     );
 };
 

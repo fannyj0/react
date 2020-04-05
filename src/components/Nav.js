@@ -22,17 +22,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-/* import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: purple,
-    secondary: {
-      main: '#f44336',
-    },
-  },
-}); */
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,8 +33,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  color: {
-    primary: '#f44336',
+  lButton: {
+    color: '#ffd822',
+    '&:hover': {
+      color: '#fffd22'
+    }
   }
 }));
 
@@ -76,7 +68,7 @@ const Nav = ({history}) => {
 
   return (
     <>
-      <AppBar className={classes.color}>
+      <AppBar>
         <Toolbar>
           <IconButton
             edge="start"
@@ -87,20 +79,23 @@ const Nav = ({history}) => {
           >
             <MenuIcon/>
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography 
+          variant="h6" 
+          className={classes.title}
+          >
             MyApp
           </Typography>
           {user === null ?
-            <Button
-              color="inherit"
+            <Button 
+              className={classes.lButton}
               startIcon={<ExitToAppIcon/>}
               component={RouterLink}
               to="/"
             >
               Login
             </Button> :
-            <Button
-              color="inherit"
+            <Button 
+            className={classes.lButton}
               startIcon={<ExitToAppIcon/>}
               component={RouterLink}
               to="/logout"

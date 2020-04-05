@@ -3,11 +3,22 @@ import PropTypes from 'prop-types';
 import {checkToken, checkUserAvailable, updateProfile} from '../hooks/ApiHooks';
 import {withRouter} from 'react-router-dom';
 import {MediaContext} from '../contexts/MediaContext';
-import {Button, Grid} from '@material-ui/core';
+import {Button, Grid, makeStyles} from '@material-ui/core';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import useProfileForm from '../hooks/ProfileHooks';
 
+
+const useStyles = makeStyles((theme) => ({
+  lButton: {
+    backgroundColor: '#ef0f4b', 
+    '&:hover': {
+      backgroundColor: '#bf0c3c'
+    }
+  }
+}));
+
 const ProfileForm = ({history}) => {
+  const classes = useStyles();
   const [user, setUser] = useContext(MediaContext);
   const [toggle, setToggle] = useState(false);
   // funktio jolla setToggle true/false
@@ -51,7 +62,9 @@ const ProfileForm = ({history}) => {
   }, [user, setInputs]);
 
   return (
-    <Grid container>
+    <Grid container 
+    //theme={theme}
+    >
       <Grid item>
         <Button
           fullWidth
@@ -127,8 +140,9 @@ const ProfileForm = ({history}) => {
 
               <Grid container item>
                 <Button
+                className={classes.lButton}
                   fullWidth
-                  color="primary"
+                  //color="primary"
                   type="submit"
                   variant="contained">
                   Save profile
