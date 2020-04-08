@@ -1,16 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useUploadForm from '../hooks/UploadHooks';
 import { upload } from '../hooks/ApiHooks';
+import {Button, Grid, CircularProgress, Slider, Typography} from '@material-ui/core';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const Upload = ({history}) => {
+    const [loading, setLoading] = useState(false);
     const doUpload = async () => {
-      //console.log('inputs', inputs);
+      setLoading(true);
       try {
         const result = await upload(inputs, localStorage.getItem('token'));
         console.log(result);
         setTimeout( () => {
+            setLoading(false);
             history.push('/home');
         }, 2000);
       } catch (e) {
@@ -19,7 +23,7 @@ const Upload = ({history}) => {
       }
     };
   
-    const {inputs, setInputs, handleInputChange, handleSubmit, handleFileChange} = useUploadForm(doUpload);
+    const {inputs, setInputs, handleInputChange, handleSubmit, handleFileChange, handleSliderChange} = useUploadForm(doUpload);
 
     useEffect(() => {
         const reader = new FileReader();
@@ -35,37 +39,141 @@ const Upload = ({history}) => {
           }, false);
 
           if(inputs.file !== null){
+              if(inputs.file.type.includes('image')){
               reader.readAsDataURL(inputs.file);
-          }
+            }else{
+                setInputs((inputs) => {
+                    return {
+                      ...inputs,
+                      dataUrl: 'logo192.png',
+            };
+          });
+        }
+        }
     }, [inputs.file, setInputs]);
+    console.log('inputs', inputs);
 
     return (
-      <>
-        <h1>Upload</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            value={inputs.title}
-            onChange={handleInputChange}
-          />
-          <textarea
-            name="description"
-            value={inputs.description}
-            onChange={handleInputChange}
-          ></textarea>
-          <input
-            type="file"
-            name="file"
-            accept="image/*,video/*,audio/*"
-            onChange={handleFileChange}
-          />
-          <button type="submit">
-            Upload
-          </button>
-        </form>
-        <img src={inputs.dataUrl} alt="preview"/>
-      </>
+      <Grid container>
+          <Grid item>
+            <h1>Upload</h1>
+        </Grid>
+        <Grid item>
+            <ValidatorForm 
+            onSubmit={handleSubmit}
+            instantValidate={false}
+            noValidate
+            >
+            <Grid container>
+            <Grid container item>
+                <TextValidator
+                    fullWidth
+                    label="Title"
+                    type="text"
+                    name="title"
+                    value={inputs.title}
+                    onChange={handleInputChange}
+                    validators={['matchRegexp:^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$']}
+                    errorMessages={['Text only']}
+                />
+                </Grid>
+                <Grid container item>
+                    <TextValidator
+                        fullWidth
+                        label="Description"
+                        name="description"
+                        value={inputs.description}
+                        onChange={handleInputChange}
+                        validators={['matchRegexp:^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$']}
+                        errorMessages={['Text only']}
+                    ></TextValidator>
+                </Grid>
+                <Grid container item>
+                    <TextValidator
+                        fullWidth
+                        type="file"
+                        name="file"
+                        accept="image/*,video/*,audio/*"
+                        onChange={handleFileChange}
+                        //value={inputs.file}
+                        /* validators={['maxFileSize:' + 1 * 1024 * 1024,'allowedExtensions:image/*,video/*,audio/*']}
+                        errorMessages={['image/video/audio files only']} */
+                    />
+                </Grid>
+                <Grid container item>
+                    <Button 
+                    color="secondary"
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    >
+                        Upload
+                    </Button>
+                </Grid>
+            </Grid>
+            </ValidatorForm>
+            {loading &&
+                <Grid item>
+                    <CircularProgress />
+                </Grid>
+            }
+            {inputs.dataUrl.length > 0 &&
+                <Grid item>
+                    <img 
+                        style={
+                            {
+                              filter: `
+                               brightness(${inputs.brightness}%)
+                               contrast(${inputs.contrast}%) 
+                               saturate(${inputs.saturation}%)
+                               sepia(${inputs.sepia}%)
+                               `,
+                            }
+                          }
+                    src={inputs.dataUrl} 
+                    alt="preview"/>
+                    <Typography>Brightness</Typography>
+                    <Slider
+                        name="brightness"
+                        value={inputs.brightness}
+                        min={0}
+                        max={200}
+                        step={1}
+                        onChange={handleSliderChange}            
+                    />
+                    <Typography>Contrast</Typography>
+                    <Slider
+                        name="contrast"
+                        value={inputs.contrast}
+                        min={0}
+                        max={200}
+                        step={1}
+                        onChange={handleSliderChange}
+            
+                    />
+                    <Typography>Saturation</Typography>
+                    <Slider
+                        name="saturation"
+                        value={inputs.saturation}
+                        min={0}
+                        max={200}
+                        step={1}
+                        onChange={handleSliderChange}
+            
+                    />
+                    <Typography>Sepia</Typography>
+                    <Slider
+                        name="sepia"
+                        value={inputs.sepia}
+                        min={0}
+                        max={200}
+                        step={1}
+                        onChange={handleSliderChange}            
+                    />
+                </Grid>
+             }       
+        </Grid>
+        </Grid>
     );
   };
   
