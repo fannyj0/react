@@ -5,7 +5,7 @@ const baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 const useAllMedia = () => {
   const [data, setData] = useState([]);
   const fetchUrl = async () => {
-    const response = await fetch(baseUrl + 'media');
+    const response = await fetch(baseUrl + 'tags/mpjakk');
     const json = await response.json();
     // haetaan yksittäiset kuvat, jotta saadan thumbnailit
     const items = await Promise.all(json.map(async (item) => {
@@ -24,7 +24,7 @@ const useAllMedia = () => {
 };
 
 const useSingleMedia = (id) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   const fetchUrl = async (fileid) => {
     const response = await fetch(baseUrl + 'media/' + fileid);
     const item = await response.json();
@@ -126,27 +126,51 @@ const updateProfile = async (inputs, token) => {
   }
 };
 
+// eslint-disable-next-line camelcase
+const addTag = async (file_id, tag, token) => {
+  const tagOptions = {
+    method: 'POST',
+    body: JSON.stringify({
+      file_id,
+      tag,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    },
+  };
+  try {
+    const tagResponse = await fetch(baseUrl + 'tags', tagOptions);
+    const tagJson = await tagResponse.json();
+    return tagJson;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
 const upload = async (inputs, token) => {
   const fd = new FormData();
-      fd.append('title', inputs.title);
-      fd.append('description', inputs.description);
-      fd.append('file', inputs.file);
+  fd.append('title', inputs.title);
+  fd.append('description', inputs.description);
+  fd.append('file', inputs.file);
 
-      const fetchOptions = {
-        method: 'POST',
-        body: fd,
-        headers: {
-            'x-access-token': token,
-        },
-      };
-      try {
-        const response = await fetch(baseUrl + 'media', fetchOptions);
-        const json = await response.json();
-        if (!response.ok) throw new Error(json.message + ': ' + json.error);
-        return json;
-      } catch (e) {
-        throw new Error(e.message);
-    }
+  const fetchOptions = {
+    method: 'POST',
+    body: fd,
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  try {
+    const response = await fetch(baseUrl + 'media', fetchOptions);
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.message + ': ' + json.error);
+    // lisää tägi mpjakk
+    const tagJson = addTag(json.file_id, 'mpjakk', token);
+    return {json, tagJson};
+  } catch (e) {
+    throw new Error(e.message);
+  }
 };
 
 export {
@@ -159,4 +183,5 @@ export {
   getAvatarImage,
   updateProfile,
   upload,
+  addTag,
 };

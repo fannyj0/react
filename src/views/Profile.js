@@ -10,16 +10,18 @@ import {
   ListItemText,
   ListItemIcon,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import {getAvatarImage} from '../hooks/ApiHooks';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import ProfileForm from '../components/ProfileForm';
+import BackButton from '../components/BackButton';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 
-const Profile = () => {
+const Profile = ({history}) => {
   const [user] = useContext(MediaContext);
   const [avatar, setAvatar] = useState([]);
   // console.log(user);
@@ -34,6 +36,7 @@ const Profile = () => {
   // console.log('avatar', avatar);
   return (
     <>
+    <BackButton/>
       <Typography
         component="h1"
         variant="h2"
@@ -73,6 +76,10 @@ const Profile = () => {
       <ProfileForm />
     </>
   );
+};
+
+Profile.propTypes = {
+  history: PropTypes.object,
 };
 
 export default Profile;

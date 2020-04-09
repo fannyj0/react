@@ -39,7 +39,8 @@ const useUploadForm = (callback) => {
   };
 
   const handleSliderChange = (event, value) => {
-    if (event.target.previousElementSibling !== null &&
+    if (event.target !== null &&
+      event.target.previousElementSibling !== null &&
       event.target.previousElementSibling.name !== undefined) {
       // console.log('nimi', event.target.previousElementSibling.name);
       // console.log('arvo', value);
