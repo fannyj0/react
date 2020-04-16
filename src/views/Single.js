@@ -1,28 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useSingleMedia} from '../hooks/ApiHooks';
-import {Typography, Paper, makeStyles} from '@material-ui/core';
+import {Typography, Paper} from '@material-ui/core';
 import BackButton from '../components/BackButton';
+import Media from '../components/Media';
 
-const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-const useStyles = makeStyles((theme) => ({
-  image: {
-    width: '100%',
-    borderRadius: 4,
-    marginBottom: -3,
-  },
-  h2: {
-    line: 2.2,
-  }
-}));
-
-const Single = ({match, history}) => {
-  const classes = useStyles();
-
-  console.log('match', match.params.id);
+const Single = ({match}) => {
+    console.log('match', match.params.id);
   const file = useSingleMedia(match.params.id);
-  console.log('file', file);
+    console.log('file', file);
   let description = undefined;
   if (file !== null) {
     description = (JSON.parse(file.description));
@@ -37,25 +24,21 @@ const Single = ({match, history}) => {
           component="h1"
           variant="h2"
           gutterBottom>{file.title}</Typography>
+           <Typography
+          component="h5"
+          variant="h5"
+          gutterBottom>{file.user ? file.user.username : 'Login to see userdata'}</Typography>
         <Paper>
           {description &&
-          <img
-            src={mediaUrl + file.filename}
-            alt={file.title}
-            className={classes.image}
-            style={
-              {
-                filter: `
-                 brightness(${description.filters.brightness}%)
-                 contrast(${description.filters.contrast}%) 
-                 saturate(${description.filters.saturation}%)
-                 sepia(${description.filters.sepia}%)
-                 `,
-              }
-            }
-          />
+          <Media file={file} description={description}/>
           }
         </Paper>
+        <Typography
+          component="h6"
+          variant="h6"
+          gutterBottom>
+          {description.desc}
+        </Typography>
       </>
       }
     </>
