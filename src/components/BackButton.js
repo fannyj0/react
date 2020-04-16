@@ -7,16 +7,17 @@ import {makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   show: {
-    paddingTop: '20%',
-    paddingRight: '20%',
+    position: 'fixed',
+    right: '70%',
+    top: '20%',
   },
 }));
 
 const BackButton = ({history}) => {
   const classes = useStyles();
   return (
+    <div className={classes.show}>
     <Button
-    className={classes.show}
       startIcon={<ArrowBackIcon/>}
       onClick={() => {
         history.goBack();
@@ -24,6 +25,7 @@ const BackButton = ({history}) => {
     >
       Back
     </Button>
+    </div>
   );
 };
 

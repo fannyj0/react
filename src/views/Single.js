@@ -7,9 +7,9 @@ import Media from '../components/Media';
 
 
 const Single = ({match}) => {
-    console.log('match', match.params.id);
+  console.log('match', match.params.id);
   const file = useSingleMedia(match.params.id);
-    console.log('file', file);
+  console.log('file', file);
   let description = undefined;
   if (file !== null) {
     description = (JSON.parse(file.description));
@@ -18,28 +18,30 @@ const Single = ({match}) => {
   return (
     <>
       {file !== null &&
-      <>
-        <BackButton/>
-        <Typography
-          component="h1"
-          variant="h2"
-          gutterBottom>{file.title}</Typography>
-           <Typography
-          component="h5"
-          variant="h5"
-          gutterBottom>{file.user ? file.user.username : 'Login to see userdata'}</Typography>
-        <Paper>
-          {description &&
-          <Media file={file} description={description}/>
-          }
-        </Paper>
-        <Typography
-          component="h6"
-          variant="h6"
-          gutterBottom>
-          {description.desc}
-        </Typography>
-      </>
+        <>
+          <BackButton />
+          <Typography
+            component="h1"
+            variant="h2"
+            gutterBottom>{file.title}</Typography>
+          <Typography
+            component="h5"
+            variant="h5"
+            gutterBottom>
+            {file.user ? file.user.username : 'login to see userdata'}
+          </Typography>
+          <Paper>
+            {description &&
+              <Media file={file} description={description} />
+            }
+          </Paper>
+          <Typography
+            component="p"
+            variant="caption"
+            gutterBottom>
+            {description.desc}
+          </Typography>
+        </>
       }
     </>
   );
@@ -47,7 +49,6 @@ const Single = ({match}) => {
 
 Single.propTypes = {
   match: PropTypes.object,
-  history: PropTypes.object,
 };
 
 

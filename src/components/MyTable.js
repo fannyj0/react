@@ -9,6 +9,7 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 import {MediaContext} from '../contexts/MediaContext';
+import BackButton from './BackButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    width: '150%',
+
   },
   gridList: {
     width: '100%',
@@ -28,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MyTable = () => {
-  console.log("Vittu häh");
   const [user] = useContext(MediaContext);
   const classes = useStyles();
   const matches = useMediaQuery('(min-width:697px)');
@@ -43,6 +45,8 @@ const MyTable = () => {
   return (
     <div className={classes.root}>
       {user !== null &&
+      <>
+      <BackButton/>
         <GridList
           cellHeight={180}
           className={classes.gridList}
@@ -57,6 +61,7 @@ const MyTable = () => {
               </GridListTile>)
           }
         </GridList>
+        </>
       }
     </div>
   );
