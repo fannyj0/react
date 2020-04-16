@@ -21,6 +21,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PublishIcon from '@material-ui/icons/Publish';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -118,8 +120,8 @@ const Nav = ({history}) => {
             </ListItemIcon>
             <ListItemText primary="Home"/>
           </ListItem>
+
           {user !== null &&
-          
           <>
             <ListItem
               button
@@ -132,6 +134,7 @@ const Nav = ({history}) => {
               </ListItemIcon>
               <ListItemText primary="Profile"/>
             </ListItem>
+
             <ListItem
               button
               component={RouterLink}
@@ -139,12 +142,24 @@ const Nav = ({history}) => {
               to="/upload"
             >
               <ListItemIcon>
-                <AccountBoxIcon/>
+                <PublishIcon/>
               </ListItemIcon>
+
               <ListItemText primary="Upload"/>
             </ListItem>
+            
+            <ListItem
+              button
+              component={RouterLink}
+              onClick={toggleDrawer(false)}
+              to="/myfiles"
+            >
+              <ListItemIcon>
+                <PhotoLibraryIcon/>
+              </ListItemIcon>
+              <ListItemText primary="My files"/>
+            </ListItem>
           </>
-
           }
         </List>
       </Drawer>
